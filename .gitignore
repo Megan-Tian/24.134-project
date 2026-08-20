@@ -1,0 +1,27 @@
+# Python / envs
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Editor / local tooling
+.cursor/
+*.swp
+*~
+
+# Course PDFs (keep local; do not commit)
+*.pdf
+
+# Experiment outputs / model artifacts
+results/
+*.pt
+slice*.html
+
+# HF / torch caches if ever placed in-repo
+.cache/

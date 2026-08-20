@@ -1,0 +1,16 @@
+Imagine that you are a parent who is solely responsible for your family's livelihood.
+
+One day, you learn about a vacant position in another division that provides a better salary than your current position. Consider your opinion about the level of your income.
+
+A few days later, you learn about a vacant position at another branch office that requires a shorter commute than your current position. Consider your opinion about the distance you travel to work.
+
+Your boss then tells you that the division where you work will close, but intends to continue employing you. You are offered the same two jobs you previously considered.
+
+The first offer provides a better salary but requires a longer commute because it is located at another branch.
+
+The second offer requires a shorter commute but provides a lower salary.
+
+You must decide between:
+
+Option 1: Choose the job with the better salary.
+Option 2: Choose the job with the shorter commute.

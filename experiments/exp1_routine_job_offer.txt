@@ -1,0 +1,10 @@
+Imagine that you are a parent who is solely responsible for your family's livelihood. You have applied for several jobs and have now received two offers.
+
+Company A offers an annual salary of CHF 80,000 [USD 66,000] and 20 vacation days per year.
+
+Company B offers an annual salary of CHF 60,000 [USD 50,000] and 30 vacation days per year.
+
+You must decide between:
+
+Option 1: Choose the job with the higher annual salary.
+Option 2: Choose the job with the greater number of vacation days.
