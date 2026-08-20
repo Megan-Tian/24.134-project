@@ -1,0 +1,26 @@
+# Full stimulus set (all 8 scenarios), one greedy seed each.
+
+model: Qwen/Qwen3.5-0.8B
+scenario_ids:
+  - exp1_routine_job_offer
+  - exp1_taboo_safety_at_work
+  - exp1_tragic_safety_at_work
+  - exp1_tragic_flood_protection
+  - exp2_routine_job_offer
+  - exp2_taboo_flood_protection
+  - exp2_taboo_safety_at_work
+  - exp2_tragic_flood_protection
+
+seeds: [0]
+max_new_tokens: 384
+temperature: 0.0  # greedy
+top_p: 1.0
+do_sample: false
+
+stimuli_path: stimuli/scenarios.jsonl
+concepts_path: stimuli/concepts.yaml
+output_dir: results/raw
+
+# null = all lens source_layers; list of ints to subset for VRAM
+layers: null
+max_seq_len: 2048

@@ -1,0 +1,16 @@
+raw_dir: results/raw
+processed_dir: results/processed
+figures_dir: results/figures
+tables_dir: results/tables
+
+ambiguity_threshold: 0.1
+coherence_metric: continuous  # 1 - abs(j - out) / 2
+
+# Output direction for trajectory coherence:
+# eventual = score full response at every step (main "where is answer going?" view)
+# prefix = score only tokens <= t (no future leakage)
+output_mode: eventual
+
+heatmap:
+  cmap: viridis
+  dpi: 150

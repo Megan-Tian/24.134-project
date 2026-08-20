@@ -1,24 +1,33 @@
-# exp-ethics
+# Moral Coherence Experiment Package
 
-Experiential Ethics project: J-space / moral coherence experiments.
+See [HANDOFF.md](HANDOFF.md) for the scientific design.
+
+## Setup
+
+```bash
+# Submodule (already pinned)
+git submodule update --init --recursive
+
+# Install experiment package + editable jlens
+pip install -e ./jacobian-lens
+pip install -e .
+```
+
+## First milestone run
+
+```bash
+python scripts/run_generation.py --config configs/experiment.yaml
+python scripts/score_outputs.py --input results/raw/
+python scripts/run_analysis.py --config configs/analysis.yaml
+python scripts/make_figures.py --input results/processed/
+```
+
+Default config: `Qwen/Qwen3.5-0.8B` × `exp1_taboo_safety_at_work` × one greedy seed.
 
 ## Layout
 
-- `experiments/` — stimulus text from the sacred-values decision paper
-- `HANDOFF.md` — experiment design / implementation handoff
-- `factory-experiment/` — early CEO factory probe
-- `jacobian-lens/` — **git submodule** (Anthropic Jacobian lens + local walkthrough)
-
-## Submodule
-
-`jacobian-lens` is pinned to a specific commit (see `.gitmodules` / `git submodule status`).
-
-```bash
-git submodule update --init --recursive
-```
-
-The pinned commit includes a local `walkthrough.py` on branch `local/walkthrough`. That commit is **not** on `github.com/anthropics/jacobian-lens`; to clone this project elsewhere, push the submodule branch to your own fork and point `.gitmodules` at that fork.
-
-## PDFs
-
-Course PDFs stay local and are gitignored (`*.pdf`).
+- `experiments/` — raw paper stimulus wording
+- `stimuli/` — scenario metadata + concept vocabularies
+- `src/moral_coherence/` — pipeline code
+- `scripts/` — CLI entry points
+- `results/` — gitignored outputs
