@@ -15,14 +15,14 @@ dist/
 *.swp
 *~
 
-# Course PDFs (keep local; do not commit)
-*.pdf
-
 # Experiment outputs / model artifacts
 results/
 *.pt
 slice*.html
 src/*.egg-info/
+
+# background research, references
+background/
 
 # HF / torch caches if ever placed in-repo
 .cache/
