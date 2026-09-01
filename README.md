@@ -1,7 +1,4 @@
 # Moral Coherence Experiment Package
-
-See [HANDOFF.md](HANDOFF.md) for the scientific design.
-
 ## Setup
 
 ```bash
