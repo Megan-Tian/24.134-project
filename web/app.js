@@ -196,7 +196,7 @@ function buildChatPanel(data) {
     el(
       "div",
       "panel-head",
-      `<span>Model response</span><span class="hint">advance token by token</span>`
+      `<span>Model response</span><span class="hint">advance, or click a token</span>`
     )
   );
   const body = el("div", "panel-body");
@@ -206,6 +206,12 @@ function buildChatPanel(data) {
   chat.appendChild(user);
   const assistant = el("div", "bubble assistant");
   assistant.id = "assistant-bubble";
+  assistant.addEventListener("click", (e) => {
+    const tok = e.target.closest(".tok");
+    if (!tok || tok.dataset.step == null) return;
+    stopPlay();
+    setStep(parseInt(tok.dataset.step, 10));
+  });
   chat.appendChild(assistant);
   body.appendChild(chat);
   panel.appendChild(body);
@@ -333,26 +339,37 @@ function renderStep() {
 function renderTranscript() {
   const bubble = document.getElementById("assistant-bubble");
   if (!bubble) return;
-  if (state.step < 0) {
-    bubble.innerHTML = `<span class="placeholder">Press “Advance” to let the model start writing…</span>`;
-    return;
-  }
+  const n = state.data.n_steps;
   const frag = document.createDocumentFragment();
-  for (let i = 0; i <= state.step; i++) {
+  if (state.step < 0) {
+    frag.appendChild(
+      el(
+        "span",
+        "placeholder",
+        "Press “Advance”, or click any token below, to sync the readout to that moment…"
+      )
+    );
+  }
+  for (let i = 0; i < n; i++) {
     const t = state.data.steps[i].token;
     const special = isSpecialToken(t);
+    const revealed = i <= state.step;
     const span = el(
       "span",
-      `tok${i === state.step ? " current" : ""}${special ? " special" : ""}`
+      `tok${i === state.step ? " current" : ""}${
+        revealed ? "" : " future"
+      }${special ? " special" : ""}`
     );
     span.textContent = t;
+    span.dataset.step = String(i);
+    span.title = `token ${i + 1} / ${n} — click to sync readout`;
     frag.appendChild(span);
+    if (i === state.step && state.step < n - 1) {
+      frag.appendChild(el("span", "caret", "&nbsp;"));
+    }
   }
   bubble.innerHTML = "";
   bubble.appendChild(frag);
-  if (state.step < state.data.n_steps - 1) {
-    bubble.appendChild(el("span", "caret", "&nbsp;"));
-  }
 }
 
 function renderReadout() {
