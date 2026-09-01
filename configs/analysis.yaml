@@ -2,6 +2,7 @@ raw_dir: results/raw
 processed_dir: results/processed
 figures_dir: results/figures
 tables_dir: results/tables
+reports_dir: results/reports
 
 ambiguity_threshold: 0.1
 coherence_metric: continuous  # 1 - abs(j - out) / 2
@@ -14,3 +15,8 @@ output_mode: eventual
 heatmap:
   cmap: viridis
   dpi: 150
+
+qualitative_report:
+  enabled: true
+  # null = auto-pick a few layers across depth
+  layers: null
