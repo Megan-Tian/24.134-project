@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Moral Coherence — J-space readouts</title>
+    <meta
+      name="description"
+      content="Watch a language model reason through moral dilemmas, and see whether its internal J-space representations agree with the choice it makes."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="#/">
+          <span class="brand-mark"></span>
+          <span class="brand-text">
+            Moral&nbsp;Coherence
+            <small>J-space readouts of an LLM's moral choices</small>
+          </span>
+        </a>
+        <div class="header-meta" id="header-meta"></div>
+      </div>
+    </header>
+
+    <main id="app" class="wrap"></main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>
+          Static replay of precomputed runs · model
+          <code id="footer-model">—</code> · Jacobian lens (J-space) verbalization
+          of residual-stream states. Stimuli from Hanselmann &amp; Tanner (2008).
+        </p>
+      </div>
+    </footer>
+
+    <template id="tpl-home">
+      <section class="intro">
+        <h1>Do a model's <em>internal states</em> agree with the moral choice it makes?</h1>
+        <p>
+          Each experiment gives the model a decision between two competing values.
+          Pick one, then advance the model's response token by token. As it writes,
+          the <strong>J-space readout</strong> shows what each layer's internal
+          representation is "leaning" toward — Option&nbsp;A or Option&nbsp;B — so you
+          can watch whether the model's private reasoning tracks the answer it
+          eventually commits to.
+        </p>
+      </section>
+      <div class="card-grid" id="card-grid"></div>
+    </template>
+  </body>
+  <script src="./app.js"></script>
+</html>
