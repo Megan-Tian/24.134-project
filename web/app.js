@@ -17,6 +17,7 @@ const state = {
   step: -1, // -1 = nothing revealed yet
   playing: false,
   timer: null,
+  completed: false, // true once user has revealed the whole response
 };
 
 /* ----------------------------- helpers ----------------------------- */
@@ -117,6 +118,7 @@ async function renderExperiment(id) {
   state.data = data;
   state.step = -1;
   state.playing = false;
+  state.completed = false;
 
   headerMeta.innerHTML = `${CONDITION_TITLES[data.condition] || data.condition}`;
 
@@ -207,6 +209,7 @@ function buildChatPanel(data) {
   const assistant = el("div", "bubble assistant");
   assistant.id = "assistant-bubble";
   assistant.addEventListener("click", (e) => {
+    if (!state.completed) return;
     const tok = e.target.closest(".tok");
     if (!tok || tok.dataset.step == null) return;
     stopPlay();
@@ -288,6 +291,7 @@ function clampStep(s) {
 
 function setStep(s) {
   state.step = clampStep(s);
+  if (state.step >= state.data.n_steps - 1) state.completed = true;
   renderStep();
 }
 
@@ -340,17 +344,27 @@ function renderTranscript() {
   const bubble = document.getElementById("assistant-bubble");
   if (!bubble) return;
   const n = state.data.n_steps;
+  // Click-to-sync + full-response preview only unlock once the user has
+  // revealed the whole response, so they engage with the dilemma first.
+  const interactive = state.completed;
+  bubble.classList.toggle("interactive", interactive);
+
   const frag = document.createDocumentFragment();
   if (state.step < 0) {
     frag.appendChild(
       el(
         "span",
         "placeholder",
-        "Press “Advance”, or click any token below, to sync the readout to that moment…"
+        interactive
+          ? "Click any token to sync the readout to that moment…"
+          : "Press “Advance” or “Play” to reveal the model’s response token by token…"
       )
     );
   }
-  for (let i = 0; i < n; i++) {
+  // Before completion, only reveal up to the current step; after, show all
+  // tokens (with the not-yet-passed ones dimmed) and make them clickable.
+  const last = interactive ? n - 1 : state.step;
+  for (let i = 0; i <= last; i++) {
     const t = state.data.steps[i].token;
     const special = isSpecialToken(t);
     const revealed = i <= state.step;
@@ -361,8 +375,10 @@ function renderTranscript() {
       }${special ? " special" : ""}`
     );
     span.textContent = t;
-    span.dataset.step = String(i);
-    span.title = `token ${i + 1} / ${n} — click to sync readout`;
+    if (interactive) {
+      span.dataset.step = String(i);
+      span.title = `token ${i + 1} / ${n} — click to sync readout`;
+    }
     frag.appendChild(span);
     if (i === state.step && state.step < n - 1) {
       frag.appendChild(el("span", "caret", "&nbsp;"));

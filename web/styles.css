@@ -385,17 +385,19 @@ code {
 }
 .tok {
   border-radius: 3px;
-  cursor: pointer;
   transition: background 0.1s ease, opacity 0.1s ease;
 }
-.tok:hover {
+.bubble.assistant.interactive .tok {
+  cursor: pointer;
+}
+.bubble.assistant.interactive .tok:hover {
   background: rgba(245, 158, 11, 0.35);
   color: #fff;
 }
 .tok.future {
   opacity: 0.38;
 }
-.tok.future:hover {
+.bubble.assistant.interactive .tok.future:hover {
   opacity: 1;
 }
 .tok.current {
@@ -403,7 +405,7 @@ code {
   color: #1a1300;
   box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.4);
 }
-.tok.current:hover {
+.bubble.assistant.interactive .tok.current:hover {
   background: rgba(245, 158, 11, 0.95);
   color: #1a1300;
 }
